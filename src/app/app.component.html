@@ -1,1 +1,7 @@
-<app-scrollable-tab></app-scrollable-tab>
+<app-scrollable-tab 
+[menus]="topBars" 
+[backgroundColor]="'yellow'" 
+menuActiveColor="red"
+menuColor="brown"
+(tabSelected)="handleTabSelected($event)">
+</app-scrollable-tab>
