@@ -8,7 +8,7 @@ import { TopBars } from './components';
 })
 export class AppComponent {
   title = 'pinduoduo';
-
+  scrollabelTabBackgroundColor = 'red';
   topBars: TopBars[] = [
     {
       title: '热门',
@@ -50,6 +50,9 @@ export class AppComponent {
 
 
   handleTabSelected(tabMenu: TopBars) {
+    const colors = ['red', 'black', 'orange', 'blue'];
+    const idx = Math.floor(Math.random() * 4);
+    this.scrollabelTabBackgroundColor = colors[idx];
     console.log(tabMenu);
   }
 }
