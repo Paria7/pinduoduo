@@ -1,5 +1,5 @@
-<ul [ngStyle]="{'background-color': backgroundColor}">
-  <li *ngFor="let item of menus; let i=index; let even=even; let odd=odd" [ngClass]="{'even': even, 'odd':odd}">
+<ul>
+  <li *ngFor="let item of menus; let i=index;">
     <a href="#" [ngStyle]="{color: i===selectedIndex ? menuActiveColor:menuColor}" (click)="hanleSelection(i)">{{item.title}}</a>
     <span class="indicator" *ngIf="selectedIndex === i"></span>
   </li>
