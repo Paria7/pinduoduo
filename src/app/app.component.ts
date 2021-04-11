@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ImageSlider, TopBars } from './components';
+import { ImageSlider, ImageSliderComponent, TopBars } from './components';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,9 @@ import { ImageSlider, TopBars } from './components';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  @ViewChild('ImageSliderComponent', { static: true }) imageSlider: ImageSliderComponent;
+
   title = 'pinduoduo';
   scrollabelTabBackgroundColor = 'red';
 
