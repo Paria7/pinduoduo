@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 
 export interface ImageSlider {
   imgUrl: string;
@@ -11,11 +11,15 @@ export interface ImageSlider {
   templateUrl: './image-slider.component.html',
   styleUrls: ['./image-slider.component.css']
 })
-export class ImageSliderComponent implements OnInit, AfterViewInit {
+export class ImageSliderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('imageSlider', { static: true }) imgSlider: ElementRef;
   @ViewChildren('img') imgs: QueryList<ElementRef>;
   @Input() sliders: ImageSlider[] = [];
+  @Input() sliderHeight = '160px';
+  @Input() intervalBySeconds = 2;
+  selectedIndex = 0;
+  intervalId;
   constructor(private render: Renderer2) { }
 
   ngOnInit() {
@@ -24,12 +28,25 @@ export class ImageSliderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    console.log('imgs selector', this.imgs);
-    this.imgs.forEach(item => {
-      this.render.setStyle(item.nativeElement, 'height', '100px');
-    })
+    let i = 0;
+    this.intervalId = setInterval(() => {
+      this.render.setProperty(
+        this.imgSlider.nativeElement, 'scrollLeft', (this.getIndex(++this.selectedIndex) * this.imgSlider.nativeElement.scrollWidth / this.sliders.length)
+      )
+    }, this.intervalBySeconds * 1000);
+  }
+
+  getIndex(idx: number): number {
+    return idx >= 0 ? idx % this.sliders.length : this.sliders.length - (Math.abs(idx) % this.sliders.length);
+  }
+
+  handleScroll(e) {
+    const ratio = (e.target.scrollLeft * this.sliders.length) / e.target.scrollWidth;
+    this.selectedIndex = Math.round(ratio);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
   }
 
 }
