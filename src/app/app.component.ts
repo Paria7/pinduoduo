@@ -11,6 +11,7 @@ export class AppComponent {
   @ViewChild('ImageSliderComponent', { static: true }) imageSlider: ImageSliderComponent;
 
   title = 'pinduoduo';
+  username = '';
   scrollabelTabBackgroundColor = 'red';
 
   topBars: TopBars[] = [

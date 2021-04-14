@@ -4,12 +4,14 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ScrollableTabComponent } from './components';
 import { ImageSliderComponent } from './components';
+import { HorizontalGridComponent } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScrollableTabComponent,
-    ImageSliderComponent
+    ImageSliderComponent,
+    HorizontalGridComponent
   ],
   imports: [
     BrowserModule,
